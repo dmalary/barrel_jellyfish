@@ -6,6 +6,8 @@ uses mapboxgl, d3
 
 Data: [Georeferenced semi-quantitative data of the jellyfish Rhizostoma pulmo (Cnidaria: Scyphozoa) from 1810 to 2019 in the Mediterranean and Black Seas](https://zenodo.org/records/4665967)
 
+Inspiration: [SYSK Jellyfish](https://www.iheart.com/podcast/105-stuff-you-should-know-26940277/episode/jellyfish-even-cooler-than-octopi-29467347/)
+
 ### refs
 - https://franksh.com/posts/d3-mapboxgl/
 - https://docs.mapbox.com/playground/geocoding/
