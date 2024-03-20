@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      position: relative;
+      z-index: 0;
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+
+<title>Barrel Jellyfish</title>
+</head>
+<body>
+  <div id='map' style='width: 800px; height: 600px;'></div>
+  <script>
+    mapboxgl.accessToken = "YOUR MAPBOX TOKEN";
+    
+    let map;
+
+    const mapRender = (data) => {
+      map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v9",
+        center: [23.778661261879165, 37.97701426064681],
+        zoom: 3.25
+      });
+
+      map.on("viewreset", render);
+      map.on("move", render);
+      map.on("moveend", render);
+
+      return data;
+    }
+
+    const mapAnnotate = (data) => {
+      const container = map.getCanvasContainer();
+
+      const svg = d3
+        .select(container)
+        .append("svg")
+        .attr('class', 'map-svg')
+        .attr("width", "100%")
+        .attr("height", "600")
+        .style("position", "absolute")
+        .style("z-index", 2);
+
+      const dots = svg
+        .selectAll("circle")
+        .data(data)
+        .join("circle")
+        .attr('class', 'circle')
+        .attr("r", 2.5)
+        .style("fill", "#ab66b5");
+        
+      render()
+    }
+
+    const project = (d) => d.Longitud !== "NA" && map.project(new mapboxgl.LngLat(d.Longitud, d.Latitud));
+
+    const render = () => {
+      d3.selectAll(".circle")
+        // .attr('class', (d) => console.log('d', d))
+        .attr("cx", (d) => project(d).x)
+        .attr("cy", (d) => project(d).y);
+    }
+
+    const data = d3.csv('./data/data_rhizostoma_pulmo.csv', data => data)
+      .then(mapRender)
+      .then(mapAnnotate)
+  </script>
+</body>
+</html>
