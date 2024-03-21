@@ -70,6 +70,15 @@
 
       return data;
     }
+    
+    const project = (d) => d.Longitud !== "NA" && map.project(new mapboxgl.LngLat(d.Longitud, d.Latitud));
+
+    const render = () => {
+      d3.selectAll(".circle")
+        // .attr('class', (d) => console.log('d', d))
+        .attr("cx", (d) => project(d).x)
+        .attr("cy", (d) => project(d).y);
+    }
 
     const mapAnnotate = (data) => {
       const container = map.getCanvasContainer();
@@ -88,19 +97,10 @@
         .data(data)
         .join("circle")
         .attr('class', 'circle')
-        .attr("r", 1.65)
+        .attr("r", 1.5)
         .style("fill", "#ff5500");
         
       render()
-    }
-
-    const project = (d) => d.Longitud !== "NA" && map.project(new mapboxgl.LngLat(d.Longitud, d.Latitud));
-
-    const render = () => {
-      d3.selectAll(".circle")
-        // .attr('class', (d) => console.log('d', d))
-        .attr("cx", (d) => project(d).x)
-        .attr("cy", (d) => project(d).y);
     }
 
     const data = d3.csv('./data/data_rhizostoma_pulmo.csv', data => data)
