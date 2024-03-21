@@ -33,6 +33,11 @@
       float: left;
       margin: 0 15px;
     }  
+    .data-source {
+      display: inline-block;
+      padding: 10px 0;
+      width: 50%;
+    }
   </style>
 
 <title>Barrel Jellyfish</title>
@@ -42,6 +47,9 @@
   <div class="container">
     <div id='map' class="float-child"></div>
     <div id='legend' class="float-child"></div>
+  </div>
+  <div class="data-source">
+    <p><i>Data: <a href="https://zenodo.org/records/4665967">Georeferenced semi-quantitative data of the jellyfish Rhizostoma pulmo (Cnidaria: Scyphozoa) from 1810 to 2019 in the Mediterranean and Black Seas</a></i></p>
   </div>
   <script>
     mapboxgl.accessToken = "YOUR MAPBOX TOKEN";
